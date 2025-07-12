@@ -1,0 +1,28 @@
+CREATE TABLE users (
+	user_id INT AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(32) NOT NULL UNIQUE,
+	pw_hash TEXT,
+	received_likes INT DEFAULT 0,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	);
+
+CREATE TABLE posts (
+	post_id INT AUTO_INCREMENT PRIMARY KEY,
+	user_id INT,
+	likes INT DEFAULT 0,
+	comments INT DEFAULT 0,
+	content TEXT NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL
+	);
+
+CREATE TABLE comments (
+	comment_id INT AUTO_INCREMENT PRIMARY KEY,
+	parent_comment_id INT,
+	post_id INT,
+	user_id INT,
+	content TEXT NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
+	FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL
+	);
