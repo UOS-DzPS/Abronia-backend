@@ -37,7 +37,7 @@ def index():
     msg = cursor.fetchall()
     return jsonify(msg)
 
-from user import view_user, add_user
+import user
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
